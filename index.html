@@ -8,6 +8,12 @@
   <link rel="stylesheet" href="./css/reset.css">
   <link rel="stylesheet" href="./css/index.css">
   <link rel="stylesheet" href="./css/font.css">
+  <script src="./js/jquery-3.7.1.min.js"></script>
+  <script src="./js/jquery-ui.min.js"></script>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="./js/index.js"></script>
 </head>
 
 <body>
@@ -97,7 +103,7 @@
         </h2>
 
         <div class="aboutContents">
-          <div class="profile">
+          <div data-aos="fade-up" class="profile">
             <img src="./img/profilePhoto.png" alt="profilePhoto">
             <p>
               <strong>[완벽함]</strong>을 끊임없이 추구하는<br>
@@ -105,7 +111,7 @@
             </p>
           </div>
 
-          <div class="information">
+          <div data-aos="fade-up" class="information">
             <div class="aboutType">
 
               <h4>Profile</h4>
@@ -220,66 +226,67 @@
 
         <div class="skillContents">
 
-          <div class="skillGauge photo">
+          <div class="skillGauge" data-percent="98" data-outer="#0C81D7" data-inner="#1B486D">
             <img src="./img/svg/skill_photoshop.svg" alt="Photoshop">
-            <div class="bigCirle"></div>
-            <div class="smallCirle"></div>
+            <canvas class="outerPie"></canvas>
+            <canvas class="innerPie"></canvas>
           </div>
 
-
-          <div class="skillGauge ill">
+          <div class="skillGauge" data-percent="99" data-outer="#D7890C" data-inner="#6D4B1B">
             <img src="./img/svg/skill_illustrator.svg" alt="illustrator">
-            <div class="bigCirle"></div>
-            <div class="smallCirle"></div>
+            <canvas class="outerPie"></canvas>
+            <canvas class="innerPie"></canvas>
           </div>
 
-          <div class="skillGauge ind">
+          <div class="skillGauge" data-percent="94" data-outer="#D70C60" data-inner="#6D1B26">
             <img src="./img/svg/skill_indesign.svg" alt="indesign">
-            <div class="bigCirle"></div>
-            <div class="smallCirle"></div>
+            <canvas class="outerPie"></canvas>
+            <canvas class="innerPie"></canvas>
           </div>
 
-          <div class="skillGauge fig">
+          <div class="skillGauge" data-percent="93" data-outer="#DFDFDF" data-inner="#303030">
             <img src="./img/svg/skill_figma.svg" alt="figma">
-            <div class="bigCirle"></div>
-            <div class="smallCirle"></div>
+            <canvas class="outerPie"></canvas>
+            <canvas class="innerPie"></canvas>
           </div>
 
-          <div class="skillGauge notion">
-            <img src="./img/svg/skill_notion.svg" alt="notion.">
-            <div class="bigCirle"></div>
-            <div class="smallCirle"></div>
+          <div class="skillGauge photo" data-percent="90" data-outer="#DFDFDF" data-inner="#303030">
+            <img src="./img/svg/skill_notion.svg" alt="notion">
+            <canvas class="outerPie"></canvas>
+            <canvas class="innerPie"></canvas>
           </div>
 
-          <div class="skillGauge ht">
+          <div class="skillGauge photo" data-percent="94" data-outer="#D75D0C" data-inner="#6D431B">
             <img src="./img/svg/skill_html.svg" alt="html">
-            <div class="bigCirle"></div>
-            <div class="smallCirle"></div>
+            <canvas class="outerPie"></canvas>
+            <canvas class="innerPie"></canvas>
           </div>
 
-          <div class="skillGauge cs">
+          <div class="skillGauge photo" data-percent="92" data-outer="#0C53D7" data-inner="#1B356D">
             <img src="./img/svg/skill_css.svg" alt="css">
-            <div class="bigCirle"></div>
-            <div class="smallCirle"></div>
+            <canvas class="outerPie"></canvas>
+            <canvas class="innerPie"></canvas>
           </div>
 
-          <div class="skillGauge Js">
+          <div class="skillGauge photo" data-percent="85" data-outer="#D7B50C" data-inner="#6D661B">
             <img src="./img/svg/skill_js.svg" alt="js">
-            <div class="bigCirle"></div>
-            <div class="smallCirle"></div>
+            <canvas class="outerPie"></canvas>
+            <canvas class="innerPie"></canvas>
           </div>
 
-          <div class="skillGauge jq">
+          <div class="skillGauge photo" data-percent="85" data-outer="#0C81D7" data-inner="#1B486D">
             <img src="./img/svg/skill_jquery.svg" alt="jquery">
-            <div class="bigCirle"></div>
-            <div class="smallCirle"></div>
+            <canvas class="outerPie"></canvas>
+            <canvas class="innerPie"></canvas>
           </div>
 
-          <div class="skillGauge git">
+          <div class="skillGauge photo" data-percent="85" data-outer="#DFDFDF" data-inner="#303030">
             <img src="./img/svg/skill_github.svg" alt="github">
-            <div class="bigCirle"></div>
-            <div class="smallCirle"></div>
+            <canvas class="outerPie"></canvas>
+            <canvas class="innerPie"></canvas>
           </div>
+
+
         </div>
       </div>
     </section>
@@ -288,7 +295,7 @@
     <!-- ProjectSection -->
     <section id="projectSection">
       <div class="project_inner">
-        <div class="projectTitle">
+        <div class="projectTitle" data-aos="fade-up">
           <h2>
             My Projects
           </h2>
@@ -342,7 +349,7 @@
             </div>
           </div>
 
-          <div class="projectObject">
+          <div class="projectObject" data-aos="fade-up">
             <div class="work">
               <img src="./img/webProject1.png" alt="JIWON'sPortfolio">
             </div>
