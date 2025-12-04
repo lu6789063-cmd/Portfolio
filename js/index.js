@@ -1,5 +1,5 @@
 $(function () {
-  // ===== AOS 초기화 =====
+  // AOS 초기화
   AOS.init({
     duration: 600,
     easing: 'ease-out',
@@ -7,17 +7,18 @@ $(function () {
   });
 
   // 공통 변수
-  let $window = $(window);
-  let $header = $('header');
+  const $window = $(window);
+  const $header = $('header');
+
   let lastScrollY = $window.scrollTop();
   let isClickScrolling = false; // 클릭으로 스크롤 중인지 체크
   let skillAnimated = false;    // 스킬 섹션 차트 1번만 실행
 
-  // ===== 헤더 스크롤 숨김/보임 =====
+  // 헤더 스크롤 숨김/보임
   $window.on('scroll', function () {
-    let currentScroll = $(this).scrollTop();
+    const currentScroll = $window.scrollTop();
 
-    if ($header.length === 0) return;
+    if (!$header.length) return;
 
     if (currentScroll < 50) {
       $header.removeClass('hide');
@@ -34,33 +35,33 @@ $(function () {
     lastScrollY = currentScroll;
   });
 
-  // ===== 스킬 게이지 차트 (스크롤 시 진입하면 실행) =====
-  let runSkillChart = function () {
+  // 스킬 게이지 차트 (스크롤 시 진입하면 1번만 실행)
+  const runSkillChart = function () {
     if (skillAnimated) return;
 
-    let $skillSection = $('#skillSection');
-    if ($skillSection.length === 0) return;
+    const $skillSection = $('#skillSection');
+    if (!$skillSection.length) return;
 
-    let winTop = $window.scrollTop();
-    let winH = $window.height();
-    let secTop = $skillSection.offset().top;
+    const winTop = $window.scrollTop();
+    const winH = $window.height();
+    const secTop = $skillSection.offset().top;
 
     // 화면 아래쪽 60% 지점이 섹션 상단을 지나면 실행
-    if (winTop + winH * 0.6 < secTop) return;
+    if (winTop + winH * 0.1 < secTop) return;
 
     skillAnimated = true;
 
     $('.skillGauge').each(function () {
-      let $gauge = $(this);
-      let percent = Number($gauge.data('percent')) || 0;
-      let outerColor = $gauge.data('outer') || '#ffffff';
-      let innerColor = $gauge.data('inner') || '#cccccc';
+      const $gauge = $(this);
+      const percent = Number($gauge.data('percent')) || 0;
+      const outerColor = $gauge.data('outer') || '#ffffff';
+      const innerColor = $gauge.data('inner') || '#cccccc';
 
-      let outerCanvas = $gauge.find('.outerPie')[0];
-      let innerCanvas = $gauge.find('.innerPie')[0];
+      const outerCanvas = $gauge.find('.outerPie')[0];
+      const innerCanvas = $gauge.find('.innerPie')[0];
 
       if (outerCanvas) {
-        let outerCtx = outerCanvas.getContext('2d');
+        const outerCtx = outerCanvas.getContext('2d');
         new Chart(outerCtx, {
           type: 'pie',
           data: {
@@ -68,7 +69,7 @@ $(function () {
               data: [percent, 100 - percent],
               backgroundColor: [
                 outerColor,
-                'rgba(255, 255, 255, 0.06)'
+                'rgba(255, 255, 255, 0)'
               ],
               borderWidth: 0
             }]
@@ -85,7 +86,7 @@ $(function () {
       }
 
       if (innerCanvas) {
-        let innerCtx = innerCanvas.getContext('2d');
+        const innerCtx = innerCanvas.getContext('2d');
         new Chart(innerCtx, {
           type: 'pie',
           data: {
@@ -112,23 +113,21 @@ $(function () {
   };
 
   $window.on('scroll', runSkillChart);
-  runSkillChart(); // 처음 로딩 시 위치가 이미 아래일 수도 있으니 한 번 체크
+  runSkillChart();
 
-  // ===== 공통 스크롤 함수 =====
-  let scrollToSection = function (targetId) {
-    let $target = $(targetId);
-    if ($target.length === 0) return;
+  // 공통 스크롤 함수
+  const scrollToSection = function (targetId) {
+    const $target = $(targetId);
+    if (!$target.length) return;
 
-    let headerH = $header.outerHeight() || 0;
+    const headerH = $header.outerHeight() || 0;
     let offsetTop = $target.offset().top;
 
     if (targetId === '#about') {
-      // 모바일 nav 보이는 상황 → 섹션 시작 지점에 맞추기
       if ($('.mobile_nav').is(':visible')) {
         offsetTop = offsetTop - headerH - 16;
       } else {
-        // 데스크탑 → leftLine 위치 기준으로 맞추기
-        let $leftLine = $('#about .leftLine');
+        const $leftLine = $('#about .leftLine');
         if ($leftLine.length) {
           offsetTop = $leftLine.offset().top - headerH - 24;
         } else {
@@ -136,7 +135,6 @@ $(function () {
         }
       }
     } else {
-      // 나머지 섹션은 공통 오프셋
       offsetTop = offsetTop - headerH - 24;
     }
 
@@ -151,10 +149,10 @@ $(function () {
     );
   };
 
-  // ===== 데스크탑 헤더 nav 클릭 스크롤 =====
+  // 데스크탑 헤더 nav 클릭 스크롤
   $('.header_inner nav a').on('click', function (e) {
     e.preventDefault();
-    let text = $.trim($(this).text());
+    const text = $.trim($(this).text());
 
     if (text === 'Home') {
       scrollToSection('#heroSection');
@@ -167,7 +165,7 @@ $(function () {
     }
   });
 
-  // ===== topBtn: 맨 위로 스크롤 =====
+  // topBtn
   $('.topbtn').on('click', function () {
     isClickScrolling = true;
     $('html, body').stop().animate(
@@ -179,23 +177,21 @@ $(function () {
     );
   });
 
-  // ===== 모바일 네비 토글 & 스크롤 스파이 =====
-  let $mobileNavLinks = $('.mobile_nav a');
+  // 모바일 네비 스크롤 스파이 & 클릭 이동
+  const $mobileNavLinks = $('.mobile_nav a');
 
-  // 섹션 → 버튼 매핑
-  let sections = [
+  const sections = [
     { id: '#heroSection', key: 'Home' },
     { id: '#about', key: 'About' },
     { id: '#projectSection', key: 'Project' },
     { id: 'footer', key: 'Contact' }
   ];
 
-  // key(Home / About / Project / Contact)로 active 주기
-  let setActiveByKey = function (key) {
+  const setActiveByKey = function (key) {
     $mobileNavLinks.removeClass('active');
     $mobileNavLinks.each(function () {
-      let $link = $(this);
-      let text = $.trim($link.text());
+      const $link = $(this);
+      const text = $.trim($link.text());
       if (text === key) {
         $link.addClass('active');
       }
@@ -203,20 +199,19 @@ $(function () {
   };
 
   // 스크롤 스파이
-  let onScrollSpy = function () {
-    // 클릭으로 스크롤 중일 땐 버튼 안 바꿈
+  const onScrollSpy = function () {
     if (isClickScrolling) return;
 
-    let scrollMid = $window.scrollTop() + ($window.height() * 0.4);
+    const scrollMid = $window.scrollTop() + ($window.height() * 0.4);
     let currentKey = null;
 
     for (let i = 0; i < sections.length; i++) {
-      let sec = sections[i];
-      let $secEl = $(sec.id);
-      if ($secEl.length === 0) continue;
+      const sec = sections[i];
+      const $secEl = $(sec.id);
+      if (!$secEl.length) continue;
 
-      let top = $secEl.offset().top;
-      let bottom = top + $secEl.outerHeight();
+      const top = $secEl.offset().top;
+      const bottom = top + $secEl.outerHeight();
 
       if (scrollMid >= top && scrollMid < bottom) {
         currentKey = sec.key;
@@ -229,18 +224,16 @@ $(function () {
     }
   };
 
-  // 스크롤 시 실행
   $window.on('scroll', onScrollSpy);
-  onScrollSpy(); // 처음 로딩 때 한 번
+  onScrollSpy();
 
   // 모바일 nav 클릭 → 섹션 이동
   $mobileNavLinks.on('click', function (e) {
     e.preventDefault();
 
-    let $this = $(this);
-    let key = $.trim($this.text());
+    const $this = $(this);
+    const key = $.trim($this.text());
 
-    // key에 해당하는 섹션 찾기
     let targetSection = null;
     for (let i = 0; i < sections.length; i++) {
       if (sections[i].key === key) {
@@ -250,33 +243,372 @@ $(function () {
     }
     if (!targetSection) return;
 
-    let $target = $(targetSection.id);
-    if ($target.length === 0) return;
+    const $target = $(targetSection.id);
+    if (!$target.length) return;
 
-    let headerH = $header.outerHeight() || 0;
+    const headerH = $header.outerHeight() || 0;
     let offsetTop = $target.offset().top;
 
     if (targetSection.id === '#about') {
-      // 모바일 nav 보이는 상황
       offsetTop = offsetTop - headerH - 16;
     } else {
       offsetTop = offsetTop - headerH - 24;
     }
 
-    // 클릭 스크롤 시작
     isClickScrolling = true;
-
-    // 클릭한 버튼만 활성화
     setActiveByKey(key);
 
     $('html, body').stop().animate(
       { scrollTop: offsetTop },
       600,
       function () {
-        // 스크롤 애니메이션 끝난 후 다시 스파이 켬
         isClickScrolling = false;
-        onScrollSpy(); // 실제 위치 기준으로 한 번 더 정리
+        onScrollSpy();
       }
     );
   });
+
+  // 스킬 호버 시 툴팁 창 (PC용)
+  $('.skillGauge').each(function () {
+    const $gauge = $(this);
+    const $tooltip = $gauge.find('.skillTooltip');
+
+    if (!$tooltip.length) return;
+
+    $gauge.on('mouseenter', function () {
+      $tooltip.addClass('is-active');
+    });
+
+    $gauge.on('mouseleave', function () {
+      $tooltip.removeClass('is-active');
+    });
+  });
+
+  // 프로젝트 섹션: 데이터 매핑
+  const projectData = {
+    "JIWON's Portfolio": {
+      imagePc: "./img/webProject1.png",
+      imageMobile: "./img/mobile_webProject1.png",
+      alt: "JIWON's Portfolio",
+      title: "JIWON's Portfolio",
+      subtext: ["반응형 웹 페이지", "1인 프로젝트", "제작페이지 : 메인페이지"],
+      buttons: [
+        { label: "기획서", href: "#" },
+        { label: "와이어프레임", href: "#" },
+        { label: "최종 프로젝트", href: "#" }
+      ]
+    },
+    "대구아쿠아리움 Redesign": {
+      imagePc: "./img/webProject2.png",
+      imageMobile: "./img/mobile_webProject2.png",
+      alt: "Daegu Aquarium Redesign",
+      title: "대구아쿠아리움 Redesign",
+      subtext: ["반응형 웹 페이지", "1인 프로젝트", "메인 페이지 리디자인"],
+      buttons: [
+        { label: "기획서", href: "#" },
+        { label: "와이어프레임", href: "#" },
+        { label: "최종 프로젝트", href: "#" }
+      ]
+    },
+    "라이크벨 Clone Coding": {
+      imagePc: "./img/webProject3.png",
+      imageMobile: "./img/mobile_webProject3.png",
+      alt: "LikeBel Clone Coding",
+      title: "라이크벨 Clone Coding",
+      subtext: ["반응형 웹 페이지", "클론코딩", "메인 페이지 구현"],
+      buttons: [
+        { label: "기획서", href: "#" },
+        { label: "와이어프레임", href: "#" },
+        { label: "최종 프로젝트", href: "#" }
+      ]
+    },
+    "젠틀몬스터 App Design": {
+      imagePc: "./img/AppProject1.png",
+      imageMobile: "./img/AppProject1.png",
+      alt: "Gentle Monster App Design",
+      title: "젠틀몬스터 App Design",
+      subtext: [
+        "UX/UI App Design",
+        "1인 프로젝트",
+        "Flow : 회원가입 · 구매과정 · 매장재고조회 · 내프로필편집"
+      ],
+      buttons: [
+        { label: "기획서", href: "#" },
+        { label: "와이어프레임", href: "#" },
+        { label: "최종 프로젝트", href: "#" }
+      ]
+    },
+    "교보문구 룸 스프레이 Detail Page": {
+      imagePc: "./img/designProject1.png",
+      imageMobile: "./img/designProject1.png",
+      alt: "Kyobo Room Spray Detail Page",
+      title: "교보문구 룸 스프레이 Detail Page",
+      subtext: ["상세페이지 디자인", "1인 프로젝트", "Photoshop · Figma"],
+      buttons: [
+        { label: "최종 프로젝트", href: "#" }
+      ]
+    }
+  };
+
+  // 프로젝트 섹션: PC용
+  const $projectPcInner = $('#projectSection .project_inner');
+
+  if ($projectPcInner.length) {
+    const $projectObject = $projectPcInner.find('.projectObject');
+    const $workImg = $projectObject.find('.work img');
+    const $projTitle = $projectObject.find('.odjectText .textTop h4');
+    const $subtext = $projectObject.find('.odjectText .textTop .subtext');
+    const $btns = $projectObject.find('.odjectText .btns');
+    const $types = $projectPcInner.find('.project_nav .type');
+
+    // 아코디언 타이틀 클릭
+    $types.find('.title').on('click', function () {
+      const $thisTitle = $(this);
+      const $thisType = $thisTitle.closest('.type');
+      const $thisUl = $thisType.children('ul');
+
+      $types.not($thisType).children('ul').slideUp(200);
+      $types.not($thisType).find('.title img').removeClass('open');
+      $types.find('.title').removeClass('active');
+
+      if ($thisUl.is(':visible')) {
+        $thisUl.slideUp(200);
+        $thisTitle.find('img').removeClass('open');
+      } else {
+        $thisUl.slideDown(200);
+        $thisTitle.find('img').addClass('open');
+        $thisTitle.addClass('active');
+      }
+    });
+
+    // li 클릭 시 오른쪽 프로젝트 내용 변경
+    $types.find('ul li').on('click', function () {
+      const $li = $(this);
+      const name = $.trim($li.text());
+
+      $types.find('ul li').removeClass('active');
+      $li.addClass('active');
+
+      const $parentType = $li.closest('.type');
+      $types.find('.title').removeClass('active');
+      $parentType.find('.title').addClass('active');
+
+      const data = projectData[name];
+      if (!data) {
+        console.warn('projectData에 없는 이름(PC):', name);
+        return;
+      }
+
+      // PC용 이미지
+      $workImg.attr('src', data.imagePc);
+      $workImg.attr('alt', data.alt);
+
+      $projTitle.text(data.title);
+
+      $subtext.empty();
+      data.subtext.forEach(txt => {
+        $('<li>').text(txt).appendTo($subtext);
+      });
+
+      $btns.empty();
+      data.buttons.forEach(btn => {
+        $('<a>')
+          .attr('href', btn.href)
+          .text(btn.label)
+          .appendTo($btns);
+      });
+    });
+
+    const $firstType = $types.first();
+    const $firstUl = $firstType.children('ul');
+    const $firstLi = $firstUl.find('li').first();
+
+    $types.not($firstType).children('ul').hide();
+    $firstUl.show();
+    $firstType.find('.title img').addClass('open');
+    $firstLi.trigger('click');
+  }
+
+  // 프로젝트 섹션: Mobile/Tablet (mobile_inner)
+  const $mobileInner = $('#projectSection .mobile_inner');
+
+  if ($mobileInner.length) {
+    const $mobileContents = $mobileInner.find('.mobileContents .contents');
+
+    $mobileContents.each(function () {
+      const $wrap = $(this);
+      const $tab = $wrap.find('.tabSelect');     // Tablet용
+      const $phone = $wrap.find('.phoneSelect'); // Mobile용
+      const $img = $wrap.find('.mobileObject img');
+      const $textTitle = $wrap.find('.objectText h4');
+      const $textList = $wrap.find('.objectText ul');
+      const $btnWrap = $wrap.find('.objectText .btns');
+
+ 
+      if (!$tab.length && !$phone.length) return;
+
+      // 공통 업데이트 함수
+      const updateMobileProject = function (name) {
+        const data = projectData[name];
+        if (!data) {
+          console.warn('projectData에 없는 이름(Mobile/Tablet):', name);
+          return;
+        }
+
+        if ($img.length) {
+          const imgPath = data.imageMobile || data.imagePc;
+          $img.attr('src', imgPath);
+          $img.attr('alt', data.alt);
+        }
+
+        $textTitle.text(data.title);
+
+        $textList.empty();
+        data.subtext.forEach(txt => {
+          $('<li>').text(txt).appendTo($textList);
+        });
+
+        $btnWrap.empty();
+        data.buttons.forEach(btn => {
+          $('<a>')
+            .attr('href', btn.href)
+            .text(btn.label)
+            .appendTo($btnWrap);
+        });
+      };
+
+      if ($tab.length) {
+        const $tabLis = $tab.find('li');
+
+        $tabLis.on('click', function () {
+          const $li = $(this);
+          const name = $.trim($li.text());
+
+          $tabLis.removeClass('active');
+          $li.addClass('active');
+
+         
+          if ($phone.length) {
+            const $labelSpan = $phone.find('.phone-current .label');
+            if ($labelSpan.length) {
+              $labelSpan.text(name);
+            }
+          }
+
+          updateMobileProject(name);
+        });
+
+        const firstName = $.trim($tabLis.first().text());
+        $tabLis.first().addClass('active');
+        updateMobileProject(firstName);
+      }
+
+      //Mobile용 phoneSelect
+      if ($phone.length) {
+        const $phoneLis = $phone.find('li');
+        const $current = $phoneLis.first();
+        const $restLis = $phoneLis.slice(1); 
+
+        let currentLabelText = $.trim(
+          $current
+            .clone()
+            .children('img').remove().end()
+            .text()
+        );
+
+        const $icon = $current.find('img');
+
+        $current
+          .empty()
+          .addClass('phone-current');
+
+        const $labelSpan = $('<span class="label">').text(currentLabelText);
+        $current.append($labelSpan);
+        if ($icon.length) $current.append($icon);
+
+        const $dropdown = $('<div class="phone-options"></div>');
+
+        const $firstOpt = $('<li>').text(currentLabelText);
+        $dropdown.append($firstOpt);
+
+        $dropdown.append($restLis);
+
+        $phone.append($dropdown);
+
+        const $options = $dropdown.find('li');
+
+
+        const setActiveOption = function (name) {
+          $options.removeClass('active');
+          let found = false;
+
+          $options.each(function () {
+            const $opt = $(this);
+            if ($.trim($opt.text()) === name) {
+              $opt.addClass('active');
+              found = true;
+            }
+          });
+
+          $labelSpan
+            .text(name)
+            .addClass('label-active');
+
+          if (!found) {
+            $options.removeClass('active');
+          }
+        };
+
+        const openDropdown = function () {
+          $phone.addClass('open');
+          $dropdown.stop().slideDown(160);
+          if ($icon.length) $icon.addClass('open');
+        };
+
+        const closeDropdown = function () {
+          $phone.removeClass('open');
+          $dropdown.stop().slideUp(160);
+          if ($icon.length) $icon.removeClass('open');
+        };
+
+        $current.on('click', function (e) {
+          e.stopPropagation();
+          if ($phone.hasClass('open')) {
+            closeDropdown();
+          } else {
+            openDropdown();
+          }
+        });
+
+        $options.on('click', function (e) {
+          e.stopPropagation();
+          const name = $.trim($(this).text());
+
+          setActiveOption(name);
+          updateMobileProject(name);
+
+          closeDropdown();
+        });
+
+        $(document).on('click.phoneSelect', function () {
+          if ($phone.hasClass('open')) {
+            closeDropdown();
+          }
+        });
+
+        let initialName = null;
+
+        if ($tab.length) {
+          initialName = $.trim($tab.find('li').first().text());
+        } else if ($options.length) {
+          initialName = $.trim($options.first().text());
+        } else {
+          initialName = currentLabelText;
+        }
+
+        setActiveOption(initialName);
+        updateMobileProject(initialName);
+      }
+    });
+  }
 });
