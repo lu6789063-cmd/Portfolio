@@ -339,6 +339,16 @@ main .mobile_nav {
   transform: translate(-50%, -50%) scale(1);
 }
 
+#skillSection .skill_inner .skillContents .gaugeWrap{
+  display: flex;
+  flex-direction: column;
+  gap: 16px 0;
+}
+
+#skillSection .skill_inner .skillContents .gaugeWrap .mobilePercent{
+  display: none;
+}
+
 #skillSection .skill_inner .skillContents .skillGauge {
   position: relative;
   width: 126px;
@@ -888,26 +898,7 @@ footer > * {
     padding-top: 2rem;
   }
 
-  #projectSection .mobile_inner .mobileContents .contents .webOb {
-    background-image: url(../img/webBg_mobile1.png);
-    background-position: bottom center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
 
-  #projectSection .mobile_inner .mobileContents .contents .appOb {
-    background-image: url(../img/AppBg_mobile1.png);
-    background-position: bottom center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-
-  #projectSection .mobile_inner .mobileContents .contents .designOb {
-    background-image: url(../img/designBg_mobile1.png);
-    background-position: bottom center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
 
   #projectSection .mobile_inner .mobileContents .contents .objectText {
     width: 100%;
@@ -979,6 +970,15 @@ footer > * {
 
 
 @media (max-width:1048px) {
+
+  #skillSection .skill_inner .skillContents .gaugeWrap .mobilePercent{
+  display: block;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+
   #skillSection .skill_inner .skillContents .skillGauge .skillTooltip {
     display: none;
   }
