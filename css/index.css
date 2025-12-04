@@ -958,6 +958,13 @@ footer > * {
               box-shadow 0.1s ease;
   }
 
+  #projectSection .mobile_inner .mobileContents .contents .objectText .btns a:hover{
+      background-color: #efefef;
+  color: #222222;
+  font-weight: 600;
+  transition: 0.5s;
+  }
+
   #projectSection .mobile_inner .mobileContents .contents .objectText .btns a:active {
   background-color: rgb(255, 255, 255, 0.3); 
   color: #ffffff; 
@@ -1110,6 +1117,12 @@ footer > * {
     border-radius: 6px;
   }
 
+     #projectSection .mobile_inner .mobileContents .contents .objectText .btns a:hover {
+    background-color: transparent;
+    color: #a2a2a2;
+    border-color: #a2a2a2;
+  }
+
   footer {
     padding-bottom: 15rem;
   }
@@ -1141,6 +1154,7 @@ footer > * {
               box-shadow 0.1s ease;
   }
 
+  
   main .mobile_nav a:hover{
       color: #797979;
       background-color: inherit;
@@ -1242,11 +1256,7 @@ footer > * {
     font-size: 1.14rem;
   }
 
-   #projectSection .mobile_inner .mobileContents .contents .objectText .btns a:hover {
-    background-color: transparent;
-    color: #a2a2a2;
-    border-color: #a2a2a2;
-  }
+
 
   #projectSection .mobile_inner .mobileContents .contents .name .phoneSelect .phone-current .label {
     font-size: 1rem;
