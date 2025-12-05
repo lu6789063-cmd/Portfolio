@@ -315,7 +315,7 @@ $(function () {
       buttons: [
         { label: "기획서",       href: "./pdf/aquarium.pdf" },
         { label: "와이어프레임", href: "https://www.figma.com/design/KNpp0C6ZcT3I6EKJ5PpSaK/%EB%8C%80%EA%B5%AC%EC%95%84%EC%BF%A0%EC%95%84%EB%A6%AC%EC%9B%80?node-id=158-3&t=FNfumzpjp90ckMgL-1" },
-        { label: "최종 프로젝트", href: "#" }
+        { label: "최종 프로젝트", href: "http://dwc50381.dothome.co.kr/" }
       ]
     },
     "라이크벨 Clone Coding": {
