@@ -325,7 +325,7 @@ $(function () {
       title:"라이크벨 Clone Coding",
       subtext: ["반응형 웹 페이지", "클론코딩", "메인 페이지 구현"],
       buttons: [
-        { label: "최종 프로젝트", href: "#" }
+        { label: "최종 프로젝트", href: "https://lu6789063-cmd.github.io/LikeBe/" }
       ]
     },
     "젠틀몬스터 App Design": {
