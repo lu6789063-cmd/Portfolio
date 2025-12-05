@@ -342,7 +342,7 @@ main .mobile_nav {
 #skillSection .skill_inner .skillContents .gaugeWrap{
   display: flex;
   flex-direction: column;
-  gap: 16px 0;
+  gap: 24px 0;
 }
 
 #skillSection .skill_inner .skillContents .gaugeWrap .mobilePercent{
@@ -972,11 +972,24 @@ footer > * {
 @media (max-width:1048px) {
 
   #skillSection .skill_inner .skillContents .gaugeWrap .mobilePercent{
-  display: block;
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  font-size: 24px;
-  font-weight: 600;
+  gap: 4px 0;
 }
+
+ #skillSection .skill_inner .skillContents .gaugeWrap .mobilePercent .label{
+  font-size: 16px;
+  color: #dfdfdf;
+  font-weight: 700;
+  line-height: 1.2;
+ }
+
+  #skillSection .skill_inner .skillContents .gaugeWrap .mobilePercent .num{
+    font-size: 28px;
+    color: #fff;
+    font-weight: 300;
+  }
 
 
   #skillSection .skill_inner .skillContents .skillGauge .skillTooltip {
