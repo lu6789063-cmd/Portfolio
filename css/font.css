@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "enfont";
+  src: url(../font/StackSansHeadline-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: "basic";
+  src: url(../font/PretendardVariable.ttf);
+}
+
+@font-face {
+  font-family: "title";
+  src: url(../font/BacasimeAntique-Regular.ttf);
+}
